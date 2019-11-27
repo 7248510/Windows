@@ -3,16 +3,18 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include "winadd.h"
 void winMessage();
 void extract_info();
-void winAdd();
+//void winAdd();
 void location();
 
 int main()
 {	
 	winMessage();
 	extract_info();
-	winAdd();
+//	winAdd();
+	location();
 }
 
 
@@ -37,18 +39,16 @@ void location()
 {
 	using std::ofstream;
 	using std::string;
-	//string c_drive = "C:\\Users\\";
-	//string username = "%username%";
-	//string location = "\\Desktop\\";
-	//string file_name = "location3.bat";
-	//ofstream location(c_drive); //Object named location and writes the file
-	ofstream location("C:\\Users\\&username&\\Desktop\\location3.bat"); //Apply the users desktop name so the file will be added to the correct desktop
-}
-
-void winAdd()
-{
-	using std::string;
+	using std::cout;
 	using std::cin;
 	string win_name;
 	cin >> win_name;
+	string locationf;
+	string base_C = "C:\\Users\\";
+	string end_Location = "\\Desktop\\location3.bat";
+	cout << base_C + win_name + end_Location + "\n";
+	locationf = base_C + win_name + end_Location;
+	ofstream location(locationf); //Apply the users desktop name so the file will be added to the correct desktop
 }
+
+
