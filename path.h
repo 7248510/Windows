@@ -1,0 +1,4 @@
+/*
+	The path header file will run a system command to add the executable or scripting
+	file to your path so you can change to your default directory.
+*/
