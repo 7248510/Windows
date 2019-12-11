@@ -1,4 +1,4 @@
-//The purpose of this file is to write a start up script in bat
+//The purpose of this file is to write a start up script that allows 
 #include <iostream>
 #include "path.h"
 #include <string>
