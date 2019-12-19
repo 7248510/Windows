@@ -47,11 +47,12 @@ int main()
 		"&&",
 		" "
 	};
-	command = passing.cd + passing.space + virtualenv.location + passing.space + passing.combine + passing.space + virtualenv.start;
+	//command = passing.cd + passing.space + virtualenv.location + passing.space + passing.combine + passing.space + virtualenv.start;
 	//string command;
 	//command = passing.cd + passing.space + virtualenv.location + passing.space + passing.combine + passing.space + virtualenv.start;
-	cout << command;
+	//cout << command;
 	//execute = system(command);
+	//Temp solution = "cd scripts && activate.bat && cd .."
 }
 
 //cout << virtualenv.location;
