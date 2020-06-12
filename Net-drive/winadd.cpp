@@ -1,4 +1,5 @@
-//The purpose of this file is to write a start up script that uses network drives
+//The purpose of this program is to write a start up script that uses network drives
+//Looking back at this program the structure isn't the best. This is program will be archived for now.
 #include <iostream>
 #include <string>
 #include <fstream>
