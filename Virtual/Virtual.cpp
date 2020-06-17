@@ -1,61 +1,65 @@
-/*
 #include <windows.h>
-#include <cstdio>
-#pragma comment(lib, "shell32.lib") //Clang I had to link the library, the specific library was on the docs 
-int main()
-{
-    struct vbasic
-    {
-        //too large could mean there's no room for the null operator(Stackoverflow)
-        vbasic(char uid[])
-        {
-        char base[11] = "vboxmanage";
-        char headless[16] = "--type headless";
-        //char *uid;
-        char tempvar[150] = "E:\\Visual-Studio\\Project-Locations\\Windows\\Virtual\\"; 
-        //4547d839-2f8d-4bd9-bae6-2042ac3bad78
-        printf("\n%s %s %s %c", tempvar, base, headless, uid);
-        }
-    };
-    //vbasic metasploitable; //{"febe6f4f-7982-4a59-8dcd-c287fbc2fcd1"};
-    vbasic t1 {"234"};
-    //printf("%s",metasploitable);
-    //ShellExecute(NULL,"open","E:\\Visual-Studio\\Project-Locations\\Windows\\Virtual\\Hello.exe",NULL,NULL,0);
-
-    return 0;
-}
-*/
 #include <iostream>
 #include <cstdio>
+#pragma comment(lib, "shell32.lib")
+//The binary is 117kb :(
+//Clang requires pragma, the visual studio dev compiler does also(cl), g++ didn't.
+//Identify the OS to determine the which function to run.(Aiming for cross compatibly between Linux & Windows, I don't use Mac)
+//This isn't designed to run on a home based system, I'm running these VM'S on rack servers
 struct bvirt {
     char uid[150];
 };
 struct cmdargs {
-    std::string x = "VboxManage.exe startvm";
-    std::string y = "--type headless";
-    //char base[25] = "VboxManage.exe startvm";
-    //char headless[16] = "--type headless";
+    std::string vboxExec = "E:\\meta\\Vbox\\VBoxManage.exe startvm";
+    //std::string vboxExec = "C:\\Program Files\\Oracle\\VirtualBox\\VboxManage.exe startvm";
+    std::string vboxType = "--type headless";
 };
-void execute(bvirt* uid_ptr)
+void launch(bvirt* uid_ptr)
 {
     cmdargs main;
-    std::string t1, t2, t3, p1, t4;
-    t1 =  main.x;
-    t2 = main.y;
-    p1 = uid_ptr->uid;
-    t3 = main.x + main.y;
-    t4 = " ";
+    std::string vboxMain, vboxHeadless, combinationVbox, uidPointer, space; //Declaring strings
+    vboxMain =  main.vboxExec;
+    vboxHeadless = main.vboxType;
+    uidPointer = uid_ptr->uid;
+    combinationVbox = main.vboxExec + main.vboxType;
+    space = " ";
     //printf("%s %s %s", main.base,uid_ptr->uid,main.headless);
-    std::string as = t4 + t1 + t4 + p1 + t4 + t2;
-    std::cout << "ShellExecute(args" << as << ")\n";
-    //ShellExecute
+    std::string vboxDir = "C:\\Program Files\\Oracle\\VirtualBox\\";
+    std::string finalCommand = space + vboxMain + space + uidPointer + space + vboxHeadless;
+    const char *finalp = finalCommand.c_str();
+    const char *finalDir = vboxDir.c_str();
+    //std::cout << finalp << "\n";
+    std::cout << "ShellExecute(args" << finalCommand << ")\n"; //Making sure the arguments pass 
+    //SetCurrentDirectory(finalDir);
+    ShellExecute(NULL,"open",finalp,NULL,NULL,0);
+}
+int vboxExecute()
+{
+    bvirt uidMetasploitableW32[] = {"a005fd05-8305-438e-acc0-4e6dfea5ab8a"}; //Metasploitable3 Windows 
+    bvirt uidMetasploitableUB[] = {"99bb87b5-beb6-4fd5-8e95-29c40c083e28"}; //Metasploitable3 Ubuntu
+    bvirt w10[] = {"eee497e6-a22b-4ec2-b688-158dd812e65a"}; //I'll probably have to change the uid, the 90 days most likely expired
+    bvirt w19[] = {"2df0931b-5bf9-46c3-978c-b692b79ad975"}; //Windows server
+    bvirt gitLab[] = {"47e6ac85-92c2-4497-a177-1816dce47579"}; //Gitlab enterprise/community offline
+    bvirt pfsenseBridge[] = {"1f82b7e4-0812-4a47-a716-b6ccfa718b6c"}; //pfsense bridged
+    bvirt pfsenseInternal[] = {"b7f8d618-7382-4483-af93-865b8ce8bbe9"}; //internal pfsense
+    //bvirt [] = {""}; 
+    //bvirt [] = {""};
+    //bvirt [] = {""};
+    launch(uidMetasploitableW32);
+    launch(uidMetasploitableUB);
+    launch(w10);
+    launch(w19);
+    launch(gitLab);
+    launch(pfsenseBridge);
+    launch(pfsenseInternal);
+    //launch();
+    //launch();
+    //launch();
+    return 0;
 }
 int main()
 {
-    bvirt uidM[] = {"febe6f4f-7982-4a59-8dcd-c287fbc2fcd1"}; //Equals the pointer, uida = Unique id actually Metasploitable
-    execute(uidM);
-    bvirt uidB[] = {"66d3258e-6694-47ae-8a4e-8f00d4d67b9f"}; //Bulldog
-    execute(uidB);
+    vboxExecute();
 }
 
 //vboxmanage uid --type headless

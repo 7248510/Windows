@@ -7,8 +7,9 @@
 //tmain operates the same as main. If you'd like to learn more https://docs.microsoft.com/en-us/cpp/cpp/main-function-command-line-args?view=vs-2019
 //First structure the classes
 //Second Output the correct configuration
-//Third Createthe process
-//Add persistence via taskmanager|Linux equivalanet would have been a cronjob
+//Third launch the executable/commandline
+//Add persistence via task scheduler|Linux equivalanet would have been a cronjob
+//Code signing?
 struct virt
 {
     //too large could mean there's no room for the null operator(Stackoverflow)
