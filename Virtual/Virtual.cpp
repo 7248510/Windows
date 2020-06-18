@@ -1,22 +1,24 @@
 #include <windows.h>
 #include <iostream>
 #include <cstdio>
-#pragma comment(lib, "shell32.lib")
-//The binary is 117kb :(
-//Clang requires pragma, the visual studio dev compiler does also(cl), g++ didn't.
+//The binary is 117kb
+//Clang requires pragma, the visual studio dev compiler does also(cl), g++ didn't.(for shell execute)
 //Identify the OS to determine the which function to run.(Aiming for cross compatibly between Linux & Windows, I don't use Mac)
 //This isn't designed to run on a home based system, I'm running these VM'S on rack servers
+//After Attempting to use Createprocess & ShellExecute(when it came to passing vboxmanage arguments/target parameters), WinExec works!
+//Code sign?
+//This is the Unique Identification structure. Virtualbox hashes machines.
 struct bvirt {
     char uid[150];
 };
+//Command line arguments, vboxExec's string needs the path of the VirtualBox installation location
 struct cmdargs {
-    std::string vboxExec = "E:\\meta\\Vbox\\VBoxManage.exe startvm";
-    //std::string vboxExec = "C:\\Program Files\\Oracle\\VirtualBox\\VboxManage.exe startvm";
+    std::string vboxExec = "C:\\%Program Files%\\Oracle\\VirtualBox\\VBoxManage.exe startvm";
     std::string vboxType = "--type headless";
 };
-void launch(bvirt* uid_ptr)
+void launch(bvirt* uid_ptr) //passing the UID pointer to the function, it gets the pointer from vboxExecute()
 {
-    cmdargs main;
+    cmdargs main; //initializing the structure command arguments
     std::string vboxMain, vboxHeadless, combinationVbox, uidPointer, space; //Declaring strings
     vboxMain =  main.vboxExec;
     vboxHeadless = main.vboxType;
@@ -26,15 +28,22 @@ void launch(bvirt* uid_ptr)
     //printf("%s %s %s", main.base,uid_ptr->uid,main.headless);
     std::string vboxDir = "C:\\Program Files\\Oracle\\VirtualBox\\";
     std::string finalCommand = space + vboxMain + space + uidPointer + space + vboxHeadless;
+    //std::string finalArgs = uidPointer + space + vboxHeadless;
     const char *finalp = finalCommand.c_str();
-    const char *finalDir = vboxDir.c_str();
+    //const char *finalArgsp = finalArgs.c_str();
     //std::cout << finalp << "\n";
-    std::cout << "ShellExecute(args" << finalCommand << ")\n"; //Making sure the arguments pass 
+    //Executing the finalp, WinExec required a const char *, converting a string to a pointer is the [name].c_str()
+    WinExec(finalp,0);
+    //printf("%s\n", finalp);
+    //std::cout << finalCommand << "\n";
+    //std::cout << "" << finalArgsp << ")\n"; //Making sure the arguments pass 
     //SetCurrentDirectory(finalDir);
-    ShellExecute(NULL,"open",finalp,NULL,NULL,0);
+    //WinExec();
+    //ShellExecute(NULL,"open",finalp,finalArgsp,NULL,0);
 }
 int vboxExecute()
 {
+    //bvirt is your UID structure, simply declare an array and pass the UID, it passes the value as a pointer to launch, once launch gets the pointer it passes it to WinExec
     bvirt uidMetasploitableW32[] = {"a005fd05-8305-438e-acc0-4e6dfea5ab8a"}; //Metasploitable3 Windows 
     bvirt uidMetasploitableUB[] = {"99bb87b5-beb6-4fd5-8e95-29c40c083e28"}; //Metasploitable3 Ubuntu
     bvirt w10[] = {"eee497e6-a22b-4ec2-b688-158dd812e65a"}; //I'll probably have to change the uid, the 90 days most likely expired
@@ -60,6 +69,9 @@ int vboxExecute()
 int main()
 {
     vboxExecute();
+    //ShellExecute(NULL,"open","C:\\Users\\Caleb\\AppData\\Local\\Discord\\update.exe","parameters",NULL,10);
+    //ShellExecute(NULL,"open","C:\\Users\\Caleb\\Downloads\\VirtualBox-6.1.10-138449-Win.exe",NULL,NULL,0);
+    //WinExec("E:\\meta\\Vbox\\VboxManage.exe startvm 683cda2a-1307-467a-91af-18dcbbb592c4 --type headless", 0);
 }
 
 //vboxmanage uid --type headless
