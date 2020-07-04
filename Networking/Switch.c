@@ -15,7 +15,7 @@ int main()
 	DWORD dwRetVal;
 	MIB_IPADDRTABLE *pIPAddrTable;
 	DWORD dwSize = 0;
-	iaIPAddress = inet_addr("10.0.2.2");
+	iaIPAddress = inet_addr("10.0.1.4");
 	iaIPMask = inet_addr("255.0.0.0");
 	pIPAddrTable = (MIB_IPADDRTABLE*) malloc(sizeof(MIB_IPADDRTABLE));
 	if (GetIpAddrTable(pIPAddrTable, &dwSize, 0) == ERROR_INSUFFICIENT_BUFFER) {
