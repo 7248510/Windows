@@ -4,7 +4,7 @@
 #include <cstdio>
 //g++ connect.cpp -lws2_32 
 //#pragma comment(lib, "Ws2_32.lib")
-//Running Debian WSL/WSL may unlock unix sockets on Windows, time to do some testing.
+//Running Debian WSL/WSL may unlock unix sockets on Windows, time to do some testing
 //Additional note, to have root in WSL, you have to add a password
 /*From Beej's guide 
 close() == closesocket()
