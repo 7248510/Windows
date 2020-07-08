@@ -36,5 +36,6 @@ int cleanup()
 int main()
     {    
         initalWinsock();
+        getaddrinfo();
         cleanup();
     }
