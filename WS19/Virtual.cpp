@@ -8,7 +8,9 @@
 //After Attempting to use Createprocess & ShellExecute(when it came to passing vboxmanage arguments/target parameters), WinExec works!
 //Code sign?
 //This is the Unique Identification structure. Virtualbox hashes machines.
-
+//g++ bare.cpp -o bare.exe -static-libgcc -static-libstdc++
+//Linking the two libraries increased the file size too 2.1mb, yikes!
+//The old executable works fine, I wonder what caused this behavior.
 struct bvirt {
     char uid[150];
 };
