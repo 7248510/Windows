@@ -1,16 +1,6 @@
 #include <windows.h>
 #include <iostream>
 #include <cstdio>
-//The binary is 52kb
-//Designed for a workstation, I cycle between remote desktop panels or SSH
-//Possible implementations:
-//Identify the OS to determine the which function to run.(Aiming for cross compatibly between Linux & Windows, I don't use Mac)(Start learning Linux's internals)
-//Sign the code on Windows
-//signtool.exe sign /a Seems like I need to generate a certification with Makecert or buy one, I'm not buying one...
-//This is the Unique Identification structure. Virtualbox hashes machines.
-//g++ bare.cpp -o bare.exe -static-libgcc -static-libstdc++
-//Linking the two libraries increased the file size too 2.1mb, yikes!
-//The old executable works fine, I wonder what caused this behavior.
 struct bvirt {
     char uid[150];
 };
