@@ -1,16 +1,6 @@
 #include <windows.h>
 #include <iostream>
 #include <cstdio>
-//The binary is 117kb
-//Clang requires pragma, the visual studio dev compiler does also(cl), g++ didn't.(for shell execute)
-//Identify the OS to determine the which function to run.(Aiming for cross compatibly between Linux & Windows, I don't use Mac)
-//This isn't designed to run on a home based system, I'm running these VM'S on rack servers
-//After Attempting to use Createprocess & ShellExecute(when it came to passing vboxmanage arguments/target parameters), WinExec works!
-//Code sign?
-//This is the Unique Identification structure. Virtualbox hashes machines.
-//g++ bare.cpp -o bare.exe -static-libgcc -static-libstdc++
-//Linking the two libraries increased the file size too 2.1mb, yikes!
-//The old executable works fine, I wonder what caused this behavior.
 struct bvirt {
     char uid[150];
 };
